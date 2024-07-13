@@ -25,7 +25,7 @@
                     <li class="nav-item"><a class="nav-link" href="reservacion.php">Reservaciones</a></li>
                     <li class="nav-item"><a class="nav-link" href="gestion.php">Gestión de Citas</a></li>
                     <li class="nav-item"><a class="nav-link" href="historial.php">Historial</a></li>
-                    <li class="nav-item"><a class="nav-link" href="registro.php">Registro</a></li>
+                    <li class="nav-item"><a class="nav-link" href="login.php">Perfil</a></li>
                 </ul>
             </div>
         </div>
@@ -63,7 +63,6 @@
                     <input type="text" id="identificacion" name="identificacion" required><br><br>
 
                     <button type="submit" class="botones">Registrar</button>
-                    <button type="button" class="botones" onclick="location.href='login.php'">Iniciar Sesión</button>
                 </form>
             </div>
         </div>
