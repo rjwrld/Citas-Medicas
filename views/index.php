@@ -26,7 +26,7 @@
                     <li class="nav-item"><a class="nav-link" href="reservacion.php">Reservaciones</a></li>
                     <li class="nav-item"><a class="nav-link" href="gestion.php">Gestión de Citas</a></li>
                     <li class="nav-item"><a class="nav-link" href="historial.php">Historial</a></li>
-                    <li class="nav-item"><a class="nav-link" href="registro.php">Registro</a></li>
+                    <li class="nav-item"><a class="nav-link" href="login.php">Perfil</a></li>
                 </ul>
             </div>
         </div>
