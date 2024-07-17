@@ -7,14 +7,12 @@
     <meta name="description" content="" />
     <meta name="author" content="" />
     <title>Salud Agenda</title>
-    <!-- Favicon-->
     <link rel="icon" type="image/x-icon" href="/views/assets/favicon.ico" />
-    <!-- Core theme CSS (includes Bootstrap)-->
     <link href="../views/assets/boostrap/styles.css" rel="stylesheet" />
+    <link rel="stylesheet" href="../views/assets/css/styles.css">
 </head>
 
-<body>
-    <!-- Responsive navbar-->
+<body class="login-page">
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
         <div class="container px-5">
             <a class="navbar-brand" href="index.php">Salud Agenda</a>
@@ -30,20 +28,32 @@
             </div>
         </div>
     </nav>
-    <!-- Page Content-->
 
-    <!-- Content Row-->
+    <div class="container-center">
+        <div class="login">
+            <h1>Iniciar Sesión</h1>
+            <form action="/submit_login" method="POST">
+                <label for="usuario">Usuario:</label>
+                <input type="text" id="usuario" name="usuario" required><br><br>
 
-    <!-- Footer-->
+                <label for="contrasena">Contraseña:</label>
+                <input type="password" id="contrasena" name="contrasena" required><br><br>
+
+                <button type="submit" class="botones">Iniciar Sesión</button>
+                <button type="button" class="botones" onclick="location.href='registro.php'">Registrarse</button>
+            </form>
+            <div class="imagen">
+                <img src="../views/assets/logo.png" alt="Imagen de Registro">
+            </div>
+        </div>
+    </div>
+
     <footer class="py-5 bg-dark">
         <div class="container px-4 px-lg-5">
             <p class="m-0 text-center text-white">Copyright &copy; Salud Agenda 2024</p>
         </div>
     </footer>
-    <!-- Bootstrap core JS-->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
-    <!-- Core theme JS-->
-
 </body>
 
 </html>
