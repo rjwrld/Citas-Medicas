@@ -8,7 +8,7 @@
     <meta name="author" content="" />
     <title>Salud Agenda</title>
     <!-- Favicon-->
-    <link rel="icon" type="image/x-icon" href="/views/assets/favicon.ico" />
+    <link rel="icon" type="image/x-icon" href="../views/assets/favicon.ico" />
     <!-- Core theme CSS (includes Bootstrap)-->
     <link href="../views/assets/boostrap/styles.css" rel="stylesheet" />
 </head>
@@ -31,9 +31,32 @@
         </div>
     </nav>
     <!-- Page Content-->
-
-    <!-- Content Row-->
-
+    <div class="container px-5 my-5">
+        <h1 class="text-center mb-4">Historial de Pacientes</h1>
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th scope="col">ID Paciente</th>
+                    <th scope="col">Nombre</th>
+                    <th scope="col">Apellidos</th>
+                    <th scope="col">Fecha de Nacimiento</th>
+                    <th scope="col">Última Cita</th>
+                    <th scope="col">Diagnóstico</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>1</td>
+                    <td>Juan</td>
+                    <td>Pérez</td>
+                    <td>01/01/1980</td>
+                    <td>01/07/2024</td>
+                    <td>Hipertensión</td>
+                </tr>
+                <!-- Más filas de ejemplo -->
+            </tbody>
+        </table>
+    </div>
     <!-- Footer-->
     <footer class="py-5 bg-dark">
         <div class="container px-4 px-lg-5">
