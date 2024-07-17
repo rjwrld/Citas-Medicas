@@ -58,12 +58,8 @@
                     <div class="card-body">
                         <h2 class="card-title"> Los mejores especialistas </h2>
                         <p class="card-text">
-<<<<<<< Updated upstream
-                            </p>
-=======
                             Especialistas altamente calificados y dedicados a brindar la mejor atención a tus hijos. Cada medico cuenta con una vasta experiencia en diversas áreas pediátricas, asegurando un cuidado integral y personalizado. Aquí podrás conocer más sobre su formación, áreas de expertise y horarios disponibles, para que elijas al profesional que mejor se adapte a las necesidades de tus pequeños
                         </p>
->>>>>>> Stashed changes
                     </div>
                     <div class="card-footer"><a class="btn btn-primary btn-sm" href="#!">Mas Informacion</a></div>
                 </div>
@@ -73,13 +69,9 @@
                     <div class="card-body">
                         <h2 class="card-title"> Disponibilidad 24/7</h2>
                         <p class="card-text">
-<<<<<<< Updated upstream
-                            </p>
-=======
 
                             Ofrecemos disponibilidad 24/7. No importa la hora ni el día, siempre podrás contar con nosotros para atender cualquier emergencia o necesidad médica. El equipo de especialistas están listo para brindarte el mejor servicio y cuidado, garantizando tranquilidad y bienestar para ti y tus pequeños.
                         </p>
->>>>>>> Stashed changes
                     </div>
                     <div class="card-footer"><a class="btn btn-primary btn-sm" href="#!">Mas Informacion</a></div>
                 </div>
