@@ -163,4 +163,12 @@ footer {
 .imagen img {
     max-width: 100px;
     border-radius: 0.375rem;
+
+
+.infoReserCita {
+    display: flex;
+    flex-direction: colum;
+    justify-content: center;
+    align-items: center;
+}
 }
