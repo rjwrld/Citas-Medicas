@@ -1,6 +1,11 @@
 <!DOCTYPE html>
 <html lang="en">
 
+<?php
+include("dataBase.php");
+session_start();
+?>
+
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
@@ -26,7 +31,19 @@
                     <li class="nav-item"><a class="nav-link" href="reservacion.php">Reservaciones</a></li>
                     <li class="nav-item"><a class="nav-link" href="gestion.php">Gestión de Citas</a></li>
                     <li class="nav-item"><a class="nav-link" href="historial.php">Historial</a></li>
-                    <li class="nav-item"><a class="nav-link" href="login.php">Perfil</a></li>
+
+                    <?php if (isset($_SESSION['usuario'])): ?>
+                        <li class="nav-item">
+                            <a class="nav-link" href="logout.php">Cerrar sesión</a>
+                        </li>
+                        <li class="nav-item">
+                            <span class="nav-link"><?php echo htmlspecialchars($_SESSION['usuario']); ?></span>
+                        </li>
+                    <?php else: ?>
+                        <li class="nav-item">
+                            <a class="nav-link" href="login.php">Iniciar sesión</a>
+                        </li>
+                    <?php endif; ?>
                 </ul>
             </div>
         </div>
@@ -61,7 +78,7 @@
                         <p class="card-text">
 
                             Especialistas altamente calificados y dedicados a brindar la mejor atención a tus hijos. Cada medico cuenta con una vasta experiencia en diversas áreas pediátricas, asegurando un cuidado integral y personalizado. Aquí podrás conocer más sobre su formación, áreas de expertise y horarios disponibles, para que elijas al profesional que mejor se adapte a las necesidades de tus pequeños
-           </p>
+                        </p>
                     </div>
                     <div class="card-footer"><a class="btn btn-primary btn-sm" href="#!">Mas Informacion</a></div>
                 </div>
