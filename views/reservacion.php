@@ -1,6 +1,11 @@
 <!DOCTYPE html>
 <html lang="en">
 
+<?php
+include("dataBase.php");
+session_start();
+?>
+
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
@@ -28,15 +33,27 @@
                     <li class="nav-item"><a class="nav-link" href="reservacion.php">Reservaciones</a></li>
                     <li class="nav-item"><a class="nav-link" href="gestion.php">Gestión de Citas</a></li>
                     <li class="nav-item"><a class="nav-link" href="historial.php">Historial</a></li>
-                    <li class="nav-item"><a class="nav-link" href="login.php">Perfil</a></li>
+
+                    <?php if (isset($_SESSION['usuario'])): ?>
+                        <li class="nav-item">
+                            <a class="nav-link" href="logout.php">Cerrar sesión</a>
+                        </li>
+                        <li class="nav-item">
+                            <span class="nav-link"><?php echo htmlspecialchars($_SESSION['usuario']); ?></span>
+                        </li>
+                    <?php else: ?>
+                        <li class="nav-item">
+                            <a class="nav-link" href="login.php">Iniciar sesión</a>
+                        </li>
+                    <?php endif; ?>
                 </ul>
             </div>
         </div>
     </nav>
 
 
-     <!-- Contenido Pagina-->
-     <div class="container mt-5">
+    <!-- Contenido Pagina-->
+    <div class="container mt-5">
         <div class="row justify-content-center">
             <div class="col-lg-8">
                 <h1 class="text-center">¿Quieres realizarte una Revision?</h1>
@@ -47,50 +64,50 @@
 
 
 
-     <div class="container mt-5">
-        <div class="row justify-content-center">
-            <div class="col-lg-6">
-                <h1 class="text-center">Reserva de Citas Médicas</h1>
-                <form action="procesar_reserva.php" method="post">
-                    <div class="form-group">
-                        <label for="nombre">Nombre completo:</label>
-                        <input type="text" id="nombre" name="nombre" class="form-control" required>
+                <div class="container mt-5">
+                    <div class="row justify-content-center">
+                        <div class="col-lg-6">
+                            <h1 class="text-center">Reserva de Citas Médicas</h1>
+                            <form action="procesar_reserva.php" method="post">
+                                <div class="form-group">
+                                    <label for="nombre">Nombre completo:</label>
+                                    <input type="text" id="nombre" name="nombre" class="form-control" required>
+                                </div>
+                                <div class="form-group">
+                                    <label for="fecha">Fecha de la cita:</label>
+                                    <input type="date" id="fecha" name="fecha" class="form-control" required>
+                                </div>
+                                <div class="form-group">
+                                    <label for="hora">Hora de la cita:</label>
+                                    <input type="time" id="hora" name="hora" class="form-control" required>
+                                </div>
+                                <div class="form-group">
+                                    <label for="especialidad">Especialidad:</label>
+                                    <select id="especialidad" name="especialidad" class="form-control">
+                                        <option value="Consulta General">Consulta General</option>
+                                        <option value="Ginecología">Ginecología</option>
+                                        <option value="Gediatría">Gediatría</option>
+                                        <option value="Dentista">Dentista</option>
+                                    </select>
+                                </div>
+                                <br>
+                                <button type="submit" class="btn btn-primary btn-block">Reservar cita</button>
+                            </form>
+                            <div class="mt-3 text-center">
+                                <p class="text-success">Recibirás un correo de confirmación.</p>
+                            </div>
+                        </div>
                     </div>
-                    <div class="form-group">
-                        <label for="fecha">Fecha de la cita:</label>
-                        <input type="date" id="fecha" name="fecha" class="form-control" required>
-                    </div>
-                    <div class="form-group">
-                        <label for="hora">Hora de la cita:</label>
-                        <input type="time" id="hora" name="hora" class="form-control" required>
-                    </div>
-                    <div class="form-group">
-                        <label for="especialidad">Especialidad:</label>
-                        <select id="especialidad" name="especialidad" class="form-control">
-                            <option value="Consulta General">Consulta General</option>
-                            <option value="Ginecología">Ginecología</option>
-                            <option value="Gediatría">Gediatría</option>
-                            <option value="Dentista">Dentista</option>
-                        </select>
-                    </div>
-                    <br>
-                    <button type="submit" class="btn btn-primary btn-block">Reservar cita</button>
-                </form>
-                <div class="mt-3 text-center">
-                    <p class="text-success">Recibirás un correo de confirmación.</p>
                 </div>
-            </div>
-        </div>
-    </div>
 
 
-    <!-- Footer-->
-    <footer class="py-5 bg-dark">
-        <div class="container px-4 px-lg-5">
-            <p class="m-0 text-center text-white">Copyright &copy; Salud Agenda 2024</p>
-        </div>
-    </footer>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
+                <!-- Footer-->
+                <footer class="py-5 bg-dark">
+                    <div class="container px-4 px-lg-5">
+                        <p class="m-0 text-center text-white">Copyright &copy; Salud Agenda 2024</p>
+                    </div>
+                </footer>
+                <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
 
 </body>
 

@@ -1,6 +1,11 @@
 <!DOCTYPE html>
 <html lang="en">
 
+<?php
+include("dataBase.php");
+session_start();
+?>
+
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
@@ -10,6 +15,7 @@
     <link rel="icon" type="image/x-icon" href="/views/assets/favicon.ico" />
     <link href="../views/assets/boostrap/styles.css" rel="stylesheet" />
     <link rel="stylesheet" href="../views/assets/css/styles.css">
+    <script src="../controllers/scriptLogin.js" defer></script>
 </head>
 
 <body class="login-page">
@@ -23,7 +29,19 @@
                     <li class="nav-item"><a class="nav-link" href="reservacion.php">Reservaciones</a></li>
                     <li class="nav-item"><a class="nav-link" href="gestion.php">Gestión de Citas</a></li>
                     <li class="nav-item"><a class="nav-link" href="historial.php">Historial</a></li>
-                    <li class="nav-item"><a class="nav-link" href="login.php">Perfil</a></li>
+
+                    <?php if (isset($_SESSION['usuario'])): ?>
+                        <li class="nav-item">
+                            <a class="nav-link" href="logout.php">Cerrar sesión</a>
+                        </li>
+                        <li class="nav-item">
+                            <span class="nav-link"><?php echo htmlspecialchars($_SESSION['usuario']); ?></span>
+                        </li>
+                    <?php else: ?>
+                        <li class="nav-item">
+                            <a class="nav-link" href="login.php">Iniciar sesión</a>
+                        </li>
+                    <?php endif; ?>
                 </ul>
             </div>
         </div>
@@ -32,7 +50,7 @@
     <div class="container-center">
         <div class="login">
             <h1>Iniciar Sesión</h1>
-            <form action="/submit_login" method="POST">
+            <form id="loginForm" action="login_DB.php" method="POST">
                 <label for="usuario">Usuario:</label>
                 <input type="text" id="usuario" name="usuario" required><br><br>
 
