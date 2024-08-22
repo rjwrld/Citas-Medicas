@@ -14,9 +14,10 @@ session_start();
     <title>Salud Agenda</title>
 
     <link rel="icon" type="image/x-icon" href="../views/assets/favicon.ico" />
-    <link rel="stylesheet" href="../views/assets/css/styles.css">
     <link href="../views/assets/boostrap/styles.css" rel="stylesheet" />
     <script src="../controllers/scriptRegistro.js" defer></script>
+    <link href="../views/assets/css/styles.css" rel="stylesheet" />
+    <script src="../controllers/scriptTamanoLetras.js" defer></script>
 </head>
 
 <body class="registro-page">
@@ -48,7 +49,11 @@ session_start();
             </div>
         </div>
     </nav>
-
+    <div class="accessibility-bar">
+        <button class="btn-size" id="btn-small" onclick="setFontSize('small')">A</button>
+        <button class="btn-size" id="btn-medium" onclick="setFontSize('medium')">A</button>
+        <button class="btn-size" id="btn-large" onclick="setFontSize('large')">A</button>
+    </div>
     <div class="container-center">
         <div class="content-wrapper">
             <div class="image-container">

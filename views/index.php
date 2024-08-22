@@ -17,6 +17,8 @@ session_start();
     <!-- Core theme CSS (includes Bootstrap)-->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
     <link href="../views/assets/boostrap/styles.css" rel="stylesheet" />
+    <link href="../views/assets/css/styles.css" rel="stylesheet" />
+    <script src="../controllers/scriptTamanoLetras.js" defer></script>
 </head>
 
 <body>
@@ -48,6 +50,11 @@ session_start();
             </div>
         </div>
     </nav>
+    <div class="accessibility-bar">
+        <button class="btn-size" id="btn-small" onclick="setFontSize('small')">A</button>
+        <button class="btn-size" id="btn-medium" onclick="setFontSize('medium')">A</button>
+        <button class="btn-size" id="btn-large" onclick="setFontSize('large')">A</button>
+    </div>
     <!-- Page Content-->
     <div class="container px-4 px-lg-5">
         <!-- Heading Row-->
