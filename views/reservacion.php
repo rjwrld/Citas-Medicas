@@ -59,7 +59,7 @@ if (!isset($_SESSION['usuario'])) {
         <button class="btn-size" id="btn-large" onclick="setFontSize('large')">A</button>
     </div>
 
-    <!-- Contenido Pagina-->
+    <!-- Contenido Página-->
     <div class="container mt-custom">
         <div class="container mt-5">
             <div class="row justify-content-center">
@@ -111,6 +111,13 @@ if (!isset($_SESSION['usuario'])) {
             </div>
         </div>
     </div>
+    <?php if (isset($_SESSION['error'])): ?>
+        <div class="alert alert-danger" role="alert">
+            <?php echo htmlspecialchars($_SESSION['error']); ?>
+        </div>
+        <?php unset($_SESSION['error']); ?>
+    <?php endif; ?>
+
     <footer class="py-5 bg-dark">
         <div class="container px-4 px-lg-5">
             <p class="m-0 text-center text-white">Copyright &copy; Salud Agenda 2024</p>
@@ -119,24 +126,31 @@ if (!isset($_SESSION['usuario'])) {
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
     <script>
-        function validarFecha() {
-            const fecha = new Date(document.getElementById('fecha').value);
-            const diaSemana = fecha.getDay();
-            const diasPermitidos = [1, 2, 3, 4, 5];
+        function validarFechaHora() {
+            const fechaInput = document.getElementById('fecha').value;
+            const horaInput = document.getElementById('hora').value;
 
-            if (!diasPermitidos.includes(diaSemana)) {
-                alert("No se pueden hacer reservas en este día.");
+            if (!fechaInput || !horaInput) {
+                alert("Por favor, selecciona una fecha y una hora.");
+                return false;
+            }
+
+            const fecha = new Date(fechaInput + 'T' + horaInput);
+            const diaSemana = fecha.getDay();
+            const horaReserva = fecha.getHours();
+
+            if (diaSemana === 0 || diaSemana === 6) {
+                alert("No se pueden hacer reservas para los sábados y domingos.");
+                return false;
+            }
+
+            if (horaReserva < 5 || horaReserva > 15 || (horaReserva === 15 && fecha.getMinutes() > 0)) {
+                alert("La hora de la cita debe estar entre las 05:00 y las 15:00.");
                 return false;
             }
 
             return true;
         }
-
-        document.getElementById('formReserva').addEventListener('submit', function(event) {
-            if (!validarFecha()) {
-                event.preventDefault();
-            }
-        });
     </script>
 </body>
 
