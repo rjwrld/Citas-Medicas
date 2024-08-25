@@ -7,38 +7,69 @@ if (!isset($_SESSION['usuario'])) {
     exit();
 }
 
-$nombre = isset($_POST['nombre']) ? $_POST['nombre'] : '';
-$fecha = isset($_POST['fecha']) ? $_POST['fecha'] : '';
-$hora = isset($_POST['hora']) ? $_POST['hora'] : '';
-$especialidad = isset($_POST['especialidad']) ? $_POST['especialidad'] : '';
-$motivo = isset($_POST['motivo']) ? $_POST['motivo'] : ''; // Nuevo campo
+$nombre = $_POST['nombre'] ?? '';
+$fecha = $_POST['fecha'] ?? '';
+$hora = $_POST['hora'] ?? '';
+$especialidad = $_POST['especialidad'] ?? '';
+$motivo = $_POST['motivo'] ?? '';
 
-$sqlDoctor = "SELECT * FROM doctores WHERE especialidad = '$especialidad' ORDER BY RAND() LIMIT 1";
-$resultDoctor = $conn->query($sqlDoctor);
+try {
+    $fechaCita = new DateTime($fecha);
+    $horaCita = new DateTime($hora);
 
-if ($resultDoctor->num_rows > 0) {
-    $doctor = $resultDoctor->fetch_assoc();
-    $doctorAsignado = $doctor['idDoctor'];
-    $nombreDoctor = $doctor['nombreCompleto']; 
+    $diaSemana = $fechaCita->format('N'); 
+    $horaSeleccionada = (int) $horaCita->format('G'); 
+    $minutoSeleccionado = (int) $horaCita->format('i'); 
 
-    $sqlInsertCita = "INSERT INTO citas (usuario, fechaCita, horaCita, especialidad, motivo, doctorAsignado) 
-                      VALUES ('" . $_SESSION['usuario'] . "', '$fecha', '$hora', '$especialidad', '$motivo', $doctorAsignado)";
-    
-    if ($conn->query($sqlInsertCita) === TRUE) {
-        $_SESSION['cita_detalles'] = [
-            'nombre' => $nombre,
-            'fecha' => $fecha,
-            'hora' => $hora,
-            'especialidad' => $especialidad,
-            'motivo' => $motivo, // Añadir motivo
-            'doctor_nombre_completo' => $nombreDoctor 
-        ];
-        header("Location: cita.php");
-    } else {
-        echo "Error: " . $sqlInsertCita . "<br>" . $conn->error;
+    if ($diaSemana === 7) { 
+        $_SESSION['error'] = "No se pueden hacer reservas los domingos.";
+        header("Location: reservacion.php");
+        exit();
     }
-} else {
-    echo "No hay doctores disponibles en esta especialidad.";
+
+    if ($horaSeleccionada < 5 || $horaSeleccionada > 15 || ($horaSeleccionada === 15 && $minutoSeleccionado > 0)) {
+        $_SESSION['error'] = "Las citas solo se pueden hacer entre las 5:00 AM y las 3:00 PM.";
+        header("Location: reservacion.php");
+        exit();
+    }
+
+    $sqlDoctor = "SELECT * FROM doctores WHERE especialidad = ? ORDER BY RAND() LIMIT 1";
+    $stmtDoctor = $conn->prepare($sqlDoctor);
+    $stmtDoctor->bind_param("s", $especialidad);
+    $stmtDoctor->execute();
+    $resultDoctor = $stmtDoctor->get_result();
+
+    if ($resultDoctor->num_rows > 0) {
+        $doctor = $resultDoctor->fetch_assoc();
+        $doctorAsignado = $doctor['idDoctor'];
+        $nombreDoctor = $doctor['nombreCompleto'];
+
+        $sqlInsertCita = "INSERT INTO citas (usuario, fechaCita, horaCita, especialidad, motivo, doctorAsignado) 
+                          VALUES (?, ?, ?, ?, ?, ?)";
+        $stmtInsertCita = $conn->prepare($sqlInsertCita);
+        $stmtInsertCita->bind_param("sssssi", $_SESSION['usuario'], $fecha, $hora, $especialidad, $motivo, $doctorAsignado);
+
+        if ($stmtInsertCita->execute()) {
+            $_SESSION['cita_detalles'] = [
+                'nombre' => $nombre,
+                'fecha' => $fecha,
+                'hora' => $hora,
+                'especialidad' => $especialidad,
+                'motivo' => $motivo,
+                'doctor_nombre_completo' => $nombreDoctor
+            ];
+            header("Location: cita.php");
+        } else {
+            $_SESSION['error'] = "Error: " . $stmtInsertCita->error;
+            header("Location: reservacion.php");
+        }
+    } else {
+        $_SESSION['error'] = "No hay doctores disponibles en esta especialidad.";
+        header("Location: reservacion.php");
+    }
+} catch (Exception $e) {
+    $_SESSION['error'] = "Error en la fecha/hora: " . $e->getMessage();
+    header("Location: reservacion.php");
 }
 
 $conn->close();
