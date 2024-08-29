@@ -1,6 +1,11 @@
 <!DOCTYPE html>
 <html lang="en">
 
+<?php
+include("dataBase.php");
+session_start();
+?>
+
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
@@ -11,6 +16,8 @@
     <link rel="icon" type="image/x-icon" href="../views/assets/favicon.ico" />
     <!-- Core theme CSS (includes Bootstrap)-->
     <link href="../views/assets/boostrap/styles.css" rel="stylesheet" />
+    <link href="../views/assets/css/styles.css" rel="stylesheet" />
+    <script src="../controllers/scriptTamanoLetras.js" defer></script>
 </head>
 
 <body>
@@ -25,37 +32,56 @@
                     <li class="nav-item"><a class="nav-link" href="reservacion.php">Reservaciones</a></li>
                     <li class="nav-item"><a class="nav-link" href="gestion.php">Gestión de Citas</a></li>
                     <li class="nav-item"><a class="nav-link" href="historial.php">Historial</a></li>
-                    <li class="nav-item"><a class="nav-link" href="login.php">Perfil</a></li>
+
+                    <?php if (isset($_SESSION['usuario'])): ?>
+                        <li class="nav-item">
+                            <a class="nav-link" href="logout.php">Cerrar sesión</a>
+                        </li>
+                        <li class="nav-item">
+                            <span class="nav-link"><?php echo htmlspecialchars($_SESSION['usuario']); ?></span>
+                        </li>
+                    <?php else: ?>
+                        <li class="nav-item">
+                            <a class="nav-link" href="login.php">Iniciar sesión</a>
+                        </li>
+                    <?php endif; ?>
                 </ul>
             </div>
         </div>
     </nav>
+    <div class="accessibility-bar">
+        <button class="btn-size" id="btn-small" onclick="setFontSize('small')">A</button>
+        <button class="btn-size" id="btn-medium" onclick="setFontSize('medium')">A</button>
+        <button class="btn-size" id="btn-large" onclick="setFontSize('large')">A</button>
+    </div>
     <!-- Page Content-->
-    <div class="container px-5 my-5">
-        <h1 class="text-center mb-4">Historial de Pacientes</h1>
-        <table class="table table-striped">
-            <thead>
-                <tr>
-                    <th scope="col">ID Paciente</th>
-                    <th scope="col">Nombre</th>
-                    <th scope="col">Apellidos</th>
-                    <th scope="col">Fecha de Nacimiento</th>
-                    <th scope="col">Última Cita</th>
-                    <th scope="col">Diagnóstico</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr>
-                    <td>1</td>
-                    <td>Juan</td>
-                    <td>Pérez</td>
-                    <td>01/01/1980</td>
-                    <td>01/07/2024</td>
-                    <td>Hipertensión</td>
-                </tr>
-                <!-- Más filas de ejemplo -->
-            </tbody>
-        </table>
+    <div class="container mt-custom">
+        <div class="container px-5 my-5">
+            <h1 class="text-center mb-4">Historial de Pacientes</h1>
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <th scope="col">ID Paciente</th>
+                        <th scope="col">Nombre</th>
+                        <th scope="col">Apellidos</th>
+                        <th scope="col">Fecha de Nacimiento</th>
+                        <th scope="col">Última Cita</th>
+                        <th scope="col">Diagnóstico</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>1</td>
+                        <td>Juan</td>
+                        <td>Pérez</td>
+                        <td>01/01/1980</td>
+                        <td>01/07/2024</td>
+                        <td>Hipertensión</td>
+                    </tr>
+                    <!-- Más filas de ejemplo -->
+                </tbody>
+            </table>
+        </div>
     </div>
     <!-- Footer-->
     <footer class="py-5 bg-dark">

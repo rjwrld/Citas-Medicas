@@ -1,6 +1,11 @@
 <!DOCTYPE html>
 <html lang="en">
 
+<?php
+include("dataBase.php");
+session_start();
+?>
+
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
@@ -9,8 +14,10 @@
     <title>Salud Agenda</title>
 
     <link rel="icon" type="image/x-icon" href="../views/assets/favicon.ico" />
-    <link rel="stylesheet" href="../views/assets/css/styles.css">
     <link href="../views/assets/boostrap/styles.css" rel="stylesheet" />
+    <script src="../controllers/scriptRegistro.js" defer></script>
+    <link href="../views/assets/css/styles.css" rel="stylesheet" />
+    <script src="../controllers/scriptTamanoLetras.js" defer></script>
 </head>
 
 <body class="registro-page">
@@ -25,11 +32,28 @@
                     <li class="nav-item"><a class="nav-link" href="reservacion.php">Reservaciones</a></li>
                     <li class="nav-item"><a class="nav-link" href="gestion.php">Gestión de Citas</a></li>
                     <li class="nav-item"><a class="nav-link" href="historial.php">Historial</a></li>
-                    <li class="nav-item"><a class="nav-link" href="login.php">Perfil</a></li>
+
+                    <?php if (isset($_SESSION['usuario'])): ?>
+                        <li class="nav-item">
+                            <a class="nav-link" href="logout.php">Cerrar sesión</a>
+                        </li>
+                        <li class="nav-item">
+                            <span class="nav-link"><?php echo htmlspecialchars($_SESSION['usuario']); ?></span>
+                        </li>
+                    <?php else: ?>
+                        <li class="nav-item">
+                            <a class="nav-link" href="login.php">Iniciar sesión</a>
+                        </li>
+                    <?php endif; ?>
                 </ul>
             </div>
         </div>
     </nav>
+    <div class="accessibility-bar">
+        <button class="btn-size" id="btn-small" onclick="setFontSize('small')">A</button>
+        <button class="btn-size" id="btn-medium" onclick="setFontSize('medium')">A</button>
+        <button class="btn-size" id="btn-large" onclick="setFontSize('large')">A</button>
+    </div>
     <div class="container-center">
         <div class="content-wrapper">
             <div class="image-container">
@@ -37,7 +61,7 @@
             </div>
             <div class="form-container">
                 <h1>Registro de Usuario</h1>
-                <form action="/submit_registration" method="POST">
+                <form id="registrationForm" action="registro_usuario_DB.php" method="POST">
                     <label for="nombre">Nombre:</label>
                     <input type="text" id="nombre" name="nombre" required><br><br>
 
@@ -67,11 +91,13 @@
             </div>
         </div>
     </div>
+
     <footer class="py-5 bg-dark">
         <div class="container px-4 px-lg-5">
             <p class="m-0 text-center text-white">Copyright &copy; Salud Agenda 2024</p>
         </div>
     </footer>
+
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 
