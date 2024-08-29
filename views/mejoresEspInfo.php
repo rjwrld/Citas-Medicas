@@ -32,7 +32,7 @@ session_start();
                 <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
                     <li class="nav-item"><a class="nav-link active" aria-current="page" href="index.php">Inicio</a></li>
                     <li class="nav-item"><a class="nav-link" href="reservacion.php">Reservaciones</a></li>
-                    <li class="nav-item"><a class="nav-link" href="gestion.php">Gestión de Citas</a></li>
+                    <li class="nav-item"><a class="nav-link" href="noticias.php">Noticias</a></li>
                     <li class="nav-item"><a class="nav-link" href="historial.php">Historial</a></li>
 
                     <?php if (isset($_SESSION['usuario'])): ?>
@@ -83,15 +83,13 @@ session_start();
     <h1>Información de los Mejores Especialistas</h1>
     <div class="specialist-info">
         <h2>Dr. Juan Pérez</h2>
-        <p>Especialista en Cardiología con más de 20 años de experiencia.</p>
+        <p>Especialista en Ginecología con más de 20 años de experiencia.</p>
         <h2>Dra. María López</h2>
-        <p>Especialista en Neurología reconocida a nivel internacional.</p>
+        <p>Especialista en Psicología reconocida a nivel internacional.</p>
         <h2>Dr. Carlos García</h2>
-        <p>Especialista en Pediatría con un enfoque en medicina preventiva.</p>
-        <h2>Dra. Ana Martinez</h2>
-        <p>Especialista en Dermatología con un enfoque en tratamientos avanzados.</p>
+        <p>Especialista en Geriatría con un enfoque en medicina preventiva.</p>
         <h2>Dra. Julian Bonilla</h2>
-        <p>Especialista en Dentista con un enfoque en blanqueamiento y tratamiento de caries.</p>
+        <p>Especialista en Odontologíá con un enfoque en blanqueamiento y tratamiento de caries.</p>
     </div>
 
 
