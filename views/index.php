@@ -76,7 +76,7 @@ session_start();
                         <h2 class="card-title">Agenda tu cita </h2>
                         <p class="card-text"> Reserva fácilmente una cita médica para tus hijos con tan solo unos clics. Nuestro sistema intuitivo te permitirá seleccionar el especialista adecuado, elegir el horario más conveniente y confirmar la cita de manera rápida y segura </p>
                     </div>
-                    <div class="card-footer"><a class="btn btn-primary btn-sm" href="#!">Agenda tu Cita</a></div>
+                    <div class="card-footer"><a class="btn btn-primary btn-sm" href="cita.php">Agenda tu Cita</a></div>
                 </div>
             </div>
             <div class="col-md-4 mb-5">
@@ -88,7 +88,7 @@ session_start();
                             Especialistas altamente calificados y dedicados a brindar la mejor atención a tus hijos. Cada medico cuenta con una vasta experiencia en diversas áreas pediátricas, asegurando un cuidado integral y personalizado. Aquí podrás conocer más sobre su formación, áreas de expertise y horarios disponibles, para que elijas al profesional que mejor se adapte a las necesidades de tus pequeños
                         </p>
                     </div>
-                    <div class="card-footer"><a class="btn btn-primary btn-sm" href="#!">Mas Informacion</a></div>
+                    <div class="card-footer"><a class="btn btn-primary btn-sm" href="mejoresEspInfo.php">Mas Informacion</a></div>
                 </div>
             </div>
             <div class="col-md-4 mb-5">
@@ -102,7 +102,7 @@ session_start();
 
                         </p>
                     </div>
-                    <div class="card-footer"><a class="btn btn-primary btn-sm" href="#!">Mas Informacion</a></div>
+                    <div class="card-footer"><a class="btn btn-primary btn-sm" href="disp247.php">Mas Informacion</a></div>
                 </div>
             </div>
         </div>
