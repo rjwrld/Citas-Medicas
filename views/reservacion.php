@@ -152,6 +152,10 @@ if (!isset($_SESSION['usuario'])) {
             return true;
         }
     </script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-KyZXEAg3QhqLMpG8r+Knujsl5+5hb7V0h5ZzIGVYyI4=" crossorigin="anonymous"></script>
+    <script src="../controllers/scriptValidacionReserva.js"></script>
+    <script src="../controllers/jQuery/scriptValidacionReserva.js"></script>
+
 </body>
 
 </html>

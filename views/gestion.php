@@ -18,6 +18,7 @@ session_start();
     <link href="../views/assets/boostrap/styles.css" rel="stylesheet" />
     <link href="../views/assets/css/styles.css" rel="stylesheet" />
     <script src="../controllers/scriptTamanoLetras.js" defer></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
 </head>
 
 <body>

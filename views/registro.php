@@ -16,6 +16,7 @@ session_start();
     <link rel="icon" type="image/x-icon" href="../views/assets/favicon.ico" />
     <link href="../views/assets/boostrap/styles.css" rel="stylesheet" />
     <script src="../controllers/scriptRegistro.js" defer></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
     <link href="../views/assets/css/styles.css" rel="stylesheet" />
     <script src="../controllers/scriptTamanoLetras.js" defer></script>
 </head>
@@ -99,6 +100,9 @@ session_start();
     </footer>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
-</body>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-KyZXEAg3QhqLMpG8r+Knujsl5+5hb7V0h5ZzIGVYyI4=" crossorigin="anonymous"></script>
+    <script src="../controllers/scriptValidacionReserva.js"></script>
+    <script src="../controllers/jQuery/validacionRegistro.js"></script>
+    
 
 </html>
