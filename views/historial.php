@@ -5,11 +5,14 @@
 include("dataBase.php");
 session_start();
 
-
+// Verificar si el usuario está logueado
 if (!isset($_SESSION['usuario'])) {
+    // Redirigir al usuario al login si no está logueado
     header("Location: login.php");
     exit();
 }
+
+$usuario = $_SESSION['usuario'];
 ?>
 
 <head>
@@ -17,7 +20,8 @@ if (!isset($_SESSION['usuario'])) {
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
     <meta name="description" content="" />
     <meta name="author" content="" />
-    <title>Historial de Pacientes - Salud Agenda</title>
+    <title>Salud Agenda</title>
+    <!-- Favicon-->
     <link rel="icon" type="image/x-icon" href="../views/assets/favicon.ico" />
     <!-- Core theme CSS (includes Bootstrap)-->
     <link href="../views/assets/boostrap/styles.css" rel="stylesheet" />
@@ -37,7 +41,7 @@ if (!isset($_SESSION['usuario'])) {
                     <li class="nav-item"><a class="nav-link" href="reservacion.php">Reservaciones</a></li>
                     <li class="nav-item"><a class="nav-link" href="gestion.php">Gestión de Citas</a></li>
                     <li class="nav-item"><a class="nav-link" href="historial.php">Historial</a></li>
-                    <li class="nav-item"><a class="nav-link" href="pagos.php">Pagos y Facturación</a></li>
+
                     <?php if (isset($_SESSION['usuario'])): ?>
                         <li class="nav-item">
                             <a class="nav-link" href="logout.php">Cerrar sesión</a>
@@ -54,90 +58,71 @@ if (!isset($_SESSION['usuario'])) {
             </div>
         </div>
     </nav>
-
     <div class="accessibility-bar">
         <button class="btn-size" id="btn-small" onclick="setFontSize('small')">A</button>
         <button class="btn-size" id="btn-medium" onclick="setFontSize('medium')">A</button>
         <button class="btn-size" id="btn-large" onclick="setFontSize('large')">A</button>
     </div>
-
+    <!-- Page Content-->
     <div class="container mt-custom">
         <div class="container px-5 my-5">
             <h1 class="text-center mb-4">Historial de Pacientes</h1>
-
-            <div class="row mb-4">
-                <div class="col-md-6 offset-md-3">
-                    <input type="text" id="buscarPaciente" class="form-control" placeholder="Buscar paciente por nombre o ID" onkeyup="filtrarPacientes();">
-                </div>
-            </div>
-
-            <table class="table table-striped" id="tablaPacientes">
+            <table class="table table-striped">
                 <thead>
                     <tr>
-                        <th scope="col">ID Paciente</th>
-                        <th scope="col">Nombre</th>
-                        <th scope="col">Apellidos</th>
-                        <th scope="col">Fecha de Nacimiento</th>
-                        <th scope="col">Última Cita</th>
-                        <th scope="col">Diagnóstico</th>
-                        <th scope="col">Acciones</th>
+                        <th scope="col">ID Reserva</th>
+                        <th scope="col">Usuario</th>
+                        <th scope="col">Fecha de Cita</th>
+                        <th scope="col">Hora de Cita</th>
+                        <th scope="col">Especialidad</th>
+                        <th scope="col">Motivo</th>
+                        <th scope="col">Doctor Asignado</th>
                     </tr>
                 </thead>
                 <tbody>
                     <?php
-                    $query = "SELECT * FROM pacientes";
-                    $result = $conn->query($query);
-                    while ($row = $result->fetch_assoc()) {
-                        echo "<tr>";
-                        echo "<td>" . htmlspecialchars($row['id_paciente']) . "</td>";
-                        echo "<td>" . htmlspecialchars($row['nombre']) . "</td>";
-                        echo "<td>" . htmlspecialchars($row['apellidos']) . "</td>";
-                        echo "<td>" . htmlspecialchars($row['fecha_nacimiento']) . "</td>";
-                        echo "<td>" . htmlspecialchars($row['ultima_cita']) . "</td>";
-                        echo "<td>" . htmlspecialchars($row['diagnostico']) . "</td>";
-                        echo "<td>
-                                <a href='ver_detalles.php?id=" . $row['id_paciente'] . "' class='btn btn-sm btn-info'>Ver Detalles</a>
-                                <a href='editar_paciente.php?id=" . $row['id_paciente'] . "' class='btn btn-sm btn-warning'>Editar</a>
-                                <a href='eliminar_paciente.php?id=" . $row['id_paciente'] . "' class='btn btn-sm btn-danger'>Eliminar</a>
-                              </td>";
-                        echo "</tr>";
+                    $sql = "SELECT c.idReserva, c.usuario, c.fechaCita, c.horaCita, c.especialidad, c.motivo, d.nombreCompleto AS doctorAsignado 
+                            FROM citas c 
+                            JOIN doctores d ON c.doctorAsignado = d.idDoctor 
+                            WHERE c.usuario = ?";
+                    
+                    $stmt = $conn->prepare($sql);
+                    $stmt->bind_param("s", $usuario);
+                    $stmt->execute();
+                    $result = $stmt->get_result();
+
+                    if ($result->num_rows > 0) {
+                        while ($row = $result->fetch_assoc()) {
+                            echo "<tr>";
+                            echo "<td>" . htmlspecialchars($row['idReserva']) . "</td>";
+                            echo "<td>" . htmlspecialchars($row['usuario']) . "</td>";
+                            echo "<td>" . htmlspecialchars($row['fechaCita']) . "</td>";
+                            echo "<td>" . htmlspecialchars($row['horaCita']) . "</td>";
+                            echo "<td>" . htmlspecialchars($row['especialidad']) . "</td>";
+                            echo "<td>" . htmlspecialchars($row['motivo']) . "</td>";
+                            echo "<td>" . htmlspecialchars($row['doctorAsignado']) . "</td>";
+                            echo "</tr>";
+                        }
+                    } else {
+                        echo "<tr><td colspan='7' class='text-center'>No se encontraron citas</td></tr>";
                     }
+
+                    $stmt->close();
+                    $conn->close();
                     ?>
                 </tbody>
             </table>
         </div>
     </div>
-
+    <!-- Footer-->
     <footer class="py-5 bg-dark">
         <div class="container px-4 px-lg-5">
             <p class="m-0 text-center text-white">Copyright &copy; Salud Agenda 2024</p>
         </div>
     </footer>
-
+    <!-- Bootstrap core JS-->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
-
-    <script>
-        function filtrarPacientes() {
-            const input = document.getElementById("buscarPaciente");
-            const filter = input.value.toLowerCase();
-            const table = document.getElementById("tablaPacientes");
-            const tr = table.getElementsByTagName("tr");
-
-            for (let i = 1; i < tr.length; i++) {
-                const td = tr[i].getElementsByTagName("td");
-                let match = false;
-                for (let j = 0; j < td.length - 1; j++) {
-                    if (td[j]) {
-                        if (td[j].innerHTML.toLowerCase().indexOf(filter) > -1) {
-                            match = true;
-                            break;
-                        }
-                    }
-                }
-                tr[i].style.display = match ? "" : "none";
-            }
-        }
-    </script>
+    <!-- Core theme JS-->
 </body>
 
 </html>
