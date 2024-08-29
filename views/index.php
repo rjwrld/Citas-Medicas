@@ -1,6 +1,11 @@
 <!DOCTYPE html>
 <html lang="en">
 
+<?php
+include("dataBase.php");
+session_start();
+?>
+
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
@@ -12,6 +17,8 @@
     <!-- Core theme CSS (includes Bootstrap)-->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
     <link href="../views/assets/boostrap/styles.css" rel="stylesheet" />
+    <link href="../views/assets/css/styles.css" rel="stylesheet" />
+    <script src="../controllers/scriptTamanoLetras.js" defer></script>
 </head>
 
 <body>
@@ -26,11 +33,28 @@
                     <li class="nav-item"><a class="nav-link" href="reservacion.php">Reservaciones</a></li>
                     <li class="nav-item"><a class="nav-link" href="gestion.php">Gestión de Citas</a></li>
                     <li class="nav-item"><a class="nav-link" href="historial.php">Historial</a></li>
-                    <li class="nav-item"><a class="nav-link" href="login.php">Perfil</a></li>
+
+                    <?php if (isset($_SESSION['usuario'])): ?>
+                        <li class="nav-item">
+                            <a class="nav-link" href="logout.php">Cerrar sesión</a>
+                        </li>
+                        <li class="nav-item">
+                            <span class="nav-link"><?php echo htmlspecialchars($_SESSION['usuario']); ?></span>
+                        </li>
+                    <?php else: ?>
+                        <li class="nav-item">
+                            <a class="nav-link" href="login.php">Iniciar sesión</a>
+                        </li>
+                    <?php endif; ?>
                 </ul>
             </div>
         </div>
     </nav>
+    <div class="accessibility-bar">
+        <button class="btn-size" id="btn-small" onclick="setFontSize('small')">A</button>
+        <button class="btn-size" id="btn-medium" onclick="setFontSize('medium')">A</button>
+        <button class="btn-size" id="btn-large" onclick="setFontSize('large')">A</button>
+    </div>
     <!-- Page Content-->
     <div class="container px-4 px-lg-5">
         <!-- Heading Row-->
@@ -61,7 +85,7 @@
                         <p class="card-text">
 
                             Especialistas altamente calificados y dedicados a brindar la mejor atención a tus hijos. Cada medico cuenta con una vasta experiencia en diversas áreas pediátricas, asegurando un cuidado integral y personalizado. Aquí podrás conocer más sobre su formación, áreas de expertise y horarios disponibles, para que elijas al profesional que mejor se adapte a las necesidades de tus pequeños
-           </p>
+                        </p>
                     </div>
                     <div class="card-footer"><a class="btn btn-primary btn-sm" href="#!">Mas Informacion</a></div>
                 </div>
